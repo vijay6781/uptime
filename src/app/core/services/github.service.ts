@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+/* =======================
+   USER INTERFACE
+======================= */
 export interface GithubUser {
   login: string;
   name: string | null;
@@ -10,12 +13,20 @@ export interface GithubUser {
   company: string | null;
   location: string | null;
   blog: string | null;
+
+  /* SOCIAL */
+  html_url: string;
+  twitter_username?: string | null;
+
+  /* STATS */
   followers: number;
   following: number;
   public_repos: number;
 }
 
-
+/* =======================
+   CONTRIBUTIONS
+======================= */
 export interface ContributionDay {
   date: string;
   count: number;
@@ -25,32 +36,47 @@ export interface ContributionDay {
 @Injectable({ providedIn: 'root' })
 export class GithubService {
 
+  private readonly API_BASE = 'https://api.github.com/users';
+
   constructor(private http: HttpClient) {}
 
+  /* =======================
+     GET USER
+  ======================= */
   getUser(username: string) {
-    return this.http.get<GithubUser>(`https://api.github.com/users/shreeramk`);
+    return this.http.get<GithubUser>(`${this.API_BASE}/${username}`);
   }
 
-  getContributionsSvg(username: string) {
-    const url = `https://github.com/users/shreeramk/contributions`;
+  /* =======================
+     GET REPOSITORIES
+  ======================= */
+  getRepos(username: string) {
+    return this.http.get<any[]>(`${this.API_BASE}/${username}/repos`);
+  }
 
-    return this.http.get(url, { responseType: 'text' })
+  /* =======================
+     GET CONTRIBUTIONS (SVG)
+  ======================= */
+  getContributionsSvg(username: string) {
+    const url = `https://github.com/users/${username}/contributions`;
+
+    return this.http
+      .get(url, { responseType: 'text' })
       .pipe(map(svg => this.parseSvg(svg)));
   }
-  getRepos(username: string) {
-  return this.http.get(`https://api.github.com/users/shreeramk/repos`);
-}
 
-
+  /* =======================
+     PARSE SVG
+  ======================= */
   private parseSvg(svgText: string): ContributionDay[] {
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgText, 'image/svg+xml');
     const rects = Array.from(doc.querySelectorAll('rect'));
 
-    return rects.map(r => ({
-      date: r.getAttribute('data-date') || '',
-      count: Number(r.getAttribute('data-count') || 0),
-      color: r.getAttribute('fill') || undefined
+    return rects.map(rect => ({
+      date: rect.getAttribute('data-date') || '',
+      count: Number(rect.getAttribute('data-count') || 0),
+      color: rect.getAttribute('fill') || undefined
     }));
   }
 }

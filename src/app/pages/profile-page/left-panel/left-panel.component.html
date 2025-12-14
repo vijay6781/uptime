@@ -21,6 +21,18 @@
     </div>
   </div>
 
+  <div class="social-links">
+
+  <a *ngIf="user?.html_url" [href]="user?.html_url">🐙 GitHub</a>
+  <a *ngIf="user?.blog" [href]="user?.blog">🌐 Website</a>
+  <a *ngIf="user?.twitter_username"
+     [href]="'https://twitter.com/' + user?.twitter_username">
+    🐦 Twitter
+  </a>
+  <a href="https://www.linkedin.com/in/shreeramkushwaha/">💼 LinkedIn</a>
+
+</div>
+
   <h4 style="margin-top: 16px;">Stats</h4>
   <div>Repos: {{ user?.public_repos }}</div>
   <div>Followers: {{ user?.followers }}</div>
