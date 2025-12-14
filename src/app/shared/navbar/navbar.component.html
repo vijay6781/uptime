@@ -1,0 +1,18 @@
+<nav class="gh-navbar">
+  <div class="left">
+    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="logo" />
+
+    <ul>
+      <li class="active">Overview</li>
+      <li>Repositories</li>
+      <li>Projects</li>
+      <li>Packages</li>
+      <li>Stars</li>
+    </ul>
+  </div>
+
+  <div class="right">
+    <img [src]="userAvatar" class="avatar" *ngIf="userAvatar" />
+
+  </div>
+</nav>

@@ -1,0 +1,48 @@
+.left-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Avatar container */
+.avatar-wrapper {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+/* Avatar image */
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Name */
+.left-panel h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Username & text */
+.left-panel p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #57606a;
+}
+
+.meta {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.meta div {
+  margin-bottom: 6px;
+}
+
+h4 {
+  margin-top: 20px;
+  font-size: 16px;
+}

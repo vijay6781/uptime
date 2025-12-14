@@ -1,0 +1,72 @@
+<app-navbar [userAvatar]="user?.avatar_url ?? ''"></app-navbar>
+
+<div class="profile-container">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="left-sidebar">
+    <app-left-panel [user]="user"></app-left-panel>
+  </aside>
+
+  <!-- RIGHT CONTENT -->
+  <main class="main-content">
+
+    <!-- CONTRIBUTIONS -->
+    <section class="contributions-section">
+      <h3>Contributions</h3>
+      <app-contributions [username]="username"></app-contributions>
+    </section>
+
+    <!-- POPULAR REPOSITORIES -->
+    <section class="popular-repos">
+      <h3>Popular repositories</h3>
+
+      <div class="repo-grid">
+        <div
+          class="repo-card"
+          *ngFor="let repo of popularRepos"
+        >
+
+          <!-- HEADER -->
+          <div class="repo-header">
+            <a
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ repo.name }}
+            </a>
+
+            <span class="public-tag">Public</span>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <p class="description">
+            {{ repo.description || 'No description provided' }}
+          </p>
+
+          <!-- META -->
+          <div class="meta">
+
+            <span
+              class="lang"
+              *ngIf="repo.language"
+            >
+              <span
+                class="dot"
+                [style.background]="repo.languageColor || '#ccc'"
+              ></span>
+              {{ repo.language }}
+            </span>
+
+            <span class="stars">
+              &#9733; {{ repo.stargazers_count || 0 }}
+            </span>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>

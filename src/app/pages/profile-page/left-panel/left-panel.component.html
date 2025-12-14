@@ -1,0 +1,28 @@
+<div class="left-panel">
+ <div class="avatar-wrapper">
+  <img
+    [src]="user?.avatar_url"
+    alt="avatar"
+  />
+</div>
+
+  <h2>{{ user?.name }}</h2>
+  <p>{{ '@' + user?.login }}</p>
+
+  <p *ngIf="user?.bio">{{ user?.bio }}</p>
+
+  <div class="meta">
+    <div *ngIf="user?.location">Location: {{ user?.location }}</div>
+    <div *ngIf="user?.company">Company: {{ user?.company }}</div>
+
+    <div *ngIf="user?.blog">
+      Website:
+      <a [href]="user?.blog" target="_blank">{{ user?.blog }}</a>
+    </div>
+  </div>
+
+  <h4 style="margin-top: 16px;">Stats</h4>
+  <div>Repos: {{ user?.public_repos }}</div>
+  <div>Followers: {{ user?.followers }}</div>
+  <div>Following: {{ user?.following }}</div>
+</div>
